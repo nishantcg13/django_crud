@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
-    
+
     <style>
         /* Import Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -22,7 +22,7 @@
         /* Main Container */
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 1000px;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -65,8 +65,9 @@
         /* Product List Styling */
         .product-list {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
         }
 
         /* Individual Product Card */
@@ -76,11 +77,12 @@
             border-radius: 10px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
             text-align: center;
+            width: 250px;
             transition: 0.3s;
         }
 
         .product-card:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
@@ -89,6 +91,7 @@
             font-size: 22px;
             font-weight: 600;
             color: #333;
+            margin-bottom: 10px;
         }
 
         /* Product Price */
@@ -96,6 +99,21 @@
             font-size: 18px;
             color: #28a745;
             font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Product Description */
+        .product-description {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* Product Image */
+        .product-image {
+            max-width: 100%;
+            margin-top: 10px;
+            border-radius: 5px;
         }
 
         /* Buttons */
@@ -148,6 +166,10 @@
             <div class="product-card">
                 <h3 class="product-name">{{ pro.name }}</h3>
                 <p class="product-price"><strong>Price:</strong> ${{ pro.price }}</p>
+                <p class="product-description"><strong>Description:</strong> {{ pro.desc }}</p> <!-- Added description -->
+                {% if pro.image %}
+                <img src="{{ pro.image.url }}" alt="{{ pro.name }}" class="product-image">
+                {% endif %}
 
                 <!-- Update button -->
                 <form action="{% url 'update' pro.id %}" method="GET">

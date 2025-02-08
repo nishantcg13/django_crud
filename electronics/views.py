@@ -4,9 +4,15 @@ from .models import Product
 from .forms import ProductForm
 # Create your views here.
 def home(request):
+    if request.method == 'POST':
+        fm = ProductForm(request.POST)
+        if fm.is_valid():
+            fm.save()
+            fm = ProductForm()
+    else:
+        fm = ProductForm()
     prod = Product.objects.all()
-    form = ProductForm()
-    return render(request,'electronics/home.html',{'prod':prod,'form':form})
+    return render(request,'electronics/home.html',{'prod':prod,'form':fm})
 
 def update(request,id):
     if request.method == 'POST':
